@@ -9,5 +9,8 @@
 </head>
 <body>
     <h1>ciaooo</h1>
+    <?php
+    echo "ciao";
+    ?>
 </body>
 </html>
