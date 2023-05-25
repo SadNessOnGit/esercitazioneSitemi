@@ -12,14 +12,17 @@
 </head>
 
 <body>
+    <!-- Codice php usato per il controllo dell'accesso da parte dell'utente -->
+    <!-- Se l'utente non ha fatto l'accesso e prova ad accedere a questa pagina verrà reindirizzato nella pagina di accesso-->
     <?php
         session_start();
-        if(isset($_SESSION['username']) == 1 && isset($_SESSION['pwd']) == 1){}
-        else{
+        if(isset($_SESSION['username']) == 1 && isset($_SESSION['pwd']) == 1){}//controllo se le variabili della sessione sonoo state impostate
+        else{                                                                  //se non sono state impostate è perché l'utente non ha fatto l'accesso
             header("Location: http://54.36.188.122/index.php");
             session_destroy();
         }
     ?>
+    <!--NavBar-->
     <div class="nav">
         <div class="nav-sx">
             <img src="../imgs/logo.png" alt="logo">
@@ -30,6 +33,7 @@
             <img src="../imgs/user.png" alt="usr" onclick="openForm()">
             <div class="form-popup" id="myForm">
                 <form action="../logout.php" class="form-container">
+                    <!-- Stampo il nome dell'utente nel form per il logout -->
                     <?php echo "<h1>".$_SESSION['username']."</h1>";?>
                     <button type="submit" class="btn">Logout</button>
                     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
@@ -38,6 +42,7 @@
             <a><img src="../imgs/shopping-cart.png" alt="carrello"></a>
         </div>
     </div>
+    <!-- Search bar -->
     <div class="search-div">
         <form class="searchbar-box" action="./home.php" method="get">
             <input type="text" name="cond" style="padding:4px;" placeholder="Cerca qualcosa">
@@ -45,19 +50,22 @@
         </form>
     </div>
     
+    <!-- Contenitore per le cards dei prodotti -->
     <div class="card-container">
+        <!-- Codice php che si collega al db e genera le cards dei prodotti -->
         <?php
+        //connessione con il server
         include "../connect.php";
-        if ($_GET['cond'] == null) {
+        if ($_GET['cond'] == null) {//controllo sulla condizione per la ricerca
             $query = "SELECT * FROM prodotto";
         } else {
             $query = "SELECT * FROM prodotto WHERE nome LIKE '%".$_GET['cond']."%' OR descrizione LIKE '%".$_GET['cond']."%'";
         }
-        try {
+        try {//creazione delle cards attraverso le query
             $result = $db->query($query);
-            if ($result->num_rows == 0) {
+            if ($result->num_rows == 0) {//se non ci sono rows si stampa che non ci sono prodotti nel db
                 echo "No products in the database";
-            } else {
+            } else {//altrimenti attraverso un while stampiamo le cards
                 $index = 0;
                 while (($row = $result->fetch_assoc())) {
                     echo '
@@ -94,9 +102,10 @@
                     $index+=1;
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e) { //controllo errori
             echo "Error in the db";
         }
+        //chiusura del db
         $db->close();
         ?>
     </div>

@@ -12,6 +12,7 @@
 </head>
 
 <body>
+	<!-- Container per il form di accesso/iscrizione -->
 	<div class="container" id="container">
 		<div class="form-container sign-up-container">
 			<form action="./index.php" method="post">
@@ -46,38 +47,39 @@
 	</div>
 	<?php
 		session_start();
+		//controllo se è stato premuto il bottone
 		if(isset($_POST['submit']) == 1 || isset($_SESSION["submit"]) == 1){
 			include "./connect.php";
 			$db->autocommit(true);
-			//header("Location: ./others/home.php");
-			if($_POST['nusername'] != null && $_POST['npwd'] != null){
+			if($_POST['nusername'] != null && $_POST['npwd'] != null){ //controllo che i dati di iscrizione siano diversi da null
 				$user = $_POST['nusername'];
 				$pwd = $_POST['npwd'];
-				if ( preg_match('/\s/',$user) || preg_match('/\s/',$pwd)){
+				if ( preg_match('/\s/',$user) || preg_match('/\s/',$pwd)){ //controllo che i dati siano validi
 					echo "<p class='php-message'>Dati errati</p>";
 				} else {
 					$result = $db->query("SELECT * FROM user WHERE username = '$user'");
-					if($result->num_rows > 0){
+					if($result->num_rows > 0){ //controllo se l'utente inserito è già registrato
 						echo "<p class='php-message'>Utente esistente</p>";
-					}else{
+					}else{//se tutto è corretto inserisco l'utente nel db
 						$sql = "INSERT INTO user ".
 						"(username,password) "."VALUES ".
 						"('$user','$pwd')";
-						if($db->query($sql)){
+						if($db->query($sql)){ //passo alla home della pagina e salvo i dati in sessione
 							header("Location: http://54.36.188.122/others/home.php");
 							$_SESSION['username'] = $user;
 							$_SESSION['pwd'] = $pwd;
 							$_SESSION['submit'] = "Accedi";
-						} else printf("<p class='php-message'>Impossibile inserire la riga: %s</p><br/>", $db->error);
+						} else printf("<p class='php-message'>Impossibile inserire la riga: %s</p><br/>", $db->error); //controllo per l'errore
 					}
 				}
 				
 				;
-			}elseif($_POST['username'] != null && $_POST['pwd'] != null){
+			}elseif($_POST['username'] != null && $_POST['pwd'] != null){ //controllo che i dati di accesso non siano null
 				$user = $_POST['username'];
 				$pwd = $_POST['pwd'];
 				$result = $db->query("SELECT * FROM user WHERE username = '$user' AND password = '$pwd'");
-				if($result->num_rows > 0){
+				if($result->num_rows > 0){ //controllo se i dati inseriti corrispondono ai record nel db
+					//se tutto è corretto passo alla home del sito e salvo i dati nella sessione
 					$_SESSION['username'] = $user;
 					$_SESSION['pwd'] = $pwd;
 					$_SESSION['submit'] = "Accedi";
@@ -90,12 +92,14 @@
 			}else{}
 			$db->close();
 		}
+		//elimino i dati dal post
 		unset($_POST["usermane"]);
 		unset($_POST["pwd"]);
 		unset($_POST['submit']);
 		unset($_POST["nusermane"]);
 		unset($_POST["npwd"]);
 ?>
+	<!-- Collegamento con il file js -->
 	<script src="./js/access.js"></script>
 </body>
 

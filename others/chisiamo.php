@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,10 +13,12 @@
 </head>
 
 <body>
+    <!-- Codice php usato per il controllo dell'accesso da parte dell'utente -->
+    <!-- Se l'utente non ha fatto l'accesso e prova ad accedere a questa pagina verrà reindirizzato nella pagina di accesso-->
     <?php
         session_start();
-        if(isset($_SESSION['username']) == 1 && isset($_SESSION['pwd']) == 1){}
-        else{
+        if(isset($_SESSION['username']) == 1 && isset($_SESSION['pwd']) == 1){} //controllo se le variabili della sessione sonoo state impostate
+        else{                                                                   //se non sono state impostate è perché l'utente non ha fatto l'accesso
             header("Location: http://54.36.188.122/index.php");
             session_destroy();
         }
@@ -33,6 +34,7 @@
             <img src="../imgs/user.png" alt="usr" onclick="openForm()">
             <div class="form-popup" id="myForm">
                 <form action="../logout.php" class="form-container">
+                    <!-- Stampo il nome dell'utente nel form per il logout -->
                     <?php echo "<h1>".$_SESSION['username']."</h1>";?>
                     <button type="submit" class="btn">Logout</button>
                     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
@@ -60,6 +62,7 @@
             </div>
         </div>
     </section>
+    <!-- collegamento al file js -->
     <script src="./js/app.js"></script>
 </body>
 

@@ -1,9 +1,11 @@
+/*Importo il font usato da google fonts*/
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap');
 
 :root {
 	--content: "0";
 }
 
+/*stile applicato a tutti gli elementi della pagina*/
 *{
     margin: 0px;
     padding: 0px;
@@ -16,6 +18,7 @@ body{
 	min-height: 100vh;
 }
 
+/* stile per il form della pagina */
 .form-popup {
 	display: none;
 	position: fixed;
@@ -55,7 +58,7 @@ body{
 .form-container .btn:hover, .open-button:hover {
 	opacity: 1;
 }
-
+/* NavBar */
 .nav{
     display: flex;
     width: 100%;
@@ -67,6 +70,7 @@ body{
     justify-content: space-between;
 }
 
+/* stile della navbar nella parte destra e sinistra*/
 .nav-sx, .nav-dx{
     margin: 10px;
 	display: flex;
@@ -83,6 +87,7 @@ body{
 	margin: 0 10px;
 }
 
+/*stile per il numero sopra il carrello*/
 .nav-dx a::before{
 	position: absolute;
 	right: 15px;
@@ -104,6 +109,7 @@ body{
     color: white;
 }
 
+/* Search bar */
 .search-div{
 	width:100%;
 	display: flex;
@@ -121,6 +127,7 @@ body{
 	justify-content: center;
 }
 
+/*modifiche al colore dei placeholders*/
 ::placeholder {
 	color: rgb(0, 0, 0);
 	opacity: 1;
@@ -155,6 +162,7 @@ body{
     border: none;
 }
 
+/* Stile per il contenitore delle carte*/
 .card-container{
 	display: flex;
 	justify-content: center;
@@ -162,7 +170,8 @@ body{
 	flex-wrap: wrap;
 }
 
- .wrapper {
+/* Stile delle cards dei prodotti */
+.wrapper {
 	width: 300px;
 	height: 500px;
 	background: white;
@@ -172,24 +181,32 @@ body{
 	transform: scale(0.95);
 	transition: linear .5s;
 }
- .wrapper:hover {
+
+/* modifica della carta quando viene cliccata o quando gli si passa sopra con il mouse*/
+.wrapper:hover {
 	transform: scale(1);
 	box-shadow: 5px 20px 30px rgba(0, 0, 0, 0.2);
 }
 
+/* parte alta della card */
 .top {
 	height: 27rem;
 	width: 100%;
 }
- .wrapper .container .bottom {
+
+/* parte bassa della card */
+.wrapper .container .bottom {
 	width: 200%;
 	height: 20%;
 	transition: transform 0.5s;
 }
- .wrapper .container .bottom.clicked {
+
+/* modifica della parte bassa quando viene cliccata */
+.wrapper .container .bottom.clicked {
 	transform: translateX(-50%);
 }
 
+/* parte sinistra della parte bassa della carta */
 .wrapper .container .bottom .left {
 	height: 100%;
 	width: 50%;
@@ -197,7 +214,8 @@ body{
 	position: relative;
 	float: left;
 }
- .wrapper .container .bottom .left .details {
+
+.wrapper .container .bottom .left .details {
 	padding: 10px;
 	float: left;
 	width: calc(70% - 40px);
@@ -208,7 +226,8 @@ body{
 	font-weight: 1200;
 }
 
- .wrapper .container .bottom .left .buy {
+/* pulsante buy della card */
+.wrapper .container .bottom .left .buy {
 	float: right;
 	width: calc(30% - 2px);
 	height: 4.5rem;
@@ -219,14 +238,18 @@ body{
 	justify-content: center;
 	align-items: center;
 }
- .wrapper .container .bottom .left .buy img {
+/* immagine del bottone buy */
+.wrapper .container .bottom .left .buy img {
 	width: 30px;
 	transition: transform 0.5s;
 }
- .wrapper .container .bottom .left .buy:hover {
+
+.wrapper .container .bottom .left .buy:hover {
 	background: #FF416C;
 }
- .wrapper .container .bottom .right {
+
+/* parte sinistra della parte bassa della card */
+.wrapper .container .bottom .right {
 	width: 50%;
 	background: #FF416C;
 	color: white;
@@ -234,12 +257,14 @@ body{
 	height: 200%;
 	overflow: hidden;
 }
- .wrapper .container .bottom .right .details {
+
+.wrapper .container .bottom .right .details {
 	padding: 10px;
 	float: right;
 	width: calc(70% - 40px);
 }
- .wrapper .container .bottom .right .done {
+
+.wrapper .container .bottom .right .done {
 	width: calc(30% - 2px);
 	float: left;
 	transition: transform 0.5s;
@@ -249,11 +274,13 @@ body{
 	justify-content: center;
 	align-items: center;
 }
- .wrapper .container .bottom .right .done img {
+.wrapper .container .bottom .right .done img {
 	width: 30px;
 	color: white;
 }
- .wrapper .container .bottom .right .remove {
+
+/* bottone per eliminare il prodotto dal carrello */
+.wrapper .container .bottom .right .remove {
 	width: calc(30% - 1px);
 	clear: both;
 	border-right: solid thin rgba(255, 255, 255, 0.3);
@@ -264,18 +291,19 @@ body{
 	justify-content: center;
 	align-items: center;
 }
- .wrapper .container .bottom .right .remove:hover {
+.wrapper .container .bottom .right .remove:hover {
 	background: #bc0000;
 }
 
- .wrapper .container .bottom .right .remove img {
+.wrapper .container .bottom .right .remove img {
 	transition: linear 0.5s;
 	width: 40px;
 }
- .wrapper .container .bottom .right:hover .remove, .wrapper .container .bottom .right:hover .done {
+.wrapper .container .bottom .right:hover .remove, .wrapper .container .bottom .right:hover .done {
 	transform: translateY(-100%);
 }
- .wrapper .inside {
+/* pannello della descrizione della card */
+.wrapper .inside {
 	z-index: 9;
 	background: #FF4B2B;
 	width: 140px;
@@ -287,7 +315,8 @@ body{
 	transition: all 0.5s, border-radius 2s, top 1s;
 	overflow: hidden;
 }
- .wrapper .inside .icon {
+/* icona per la descrizione dei prodotti */
+.wrapper .inside .icon {
 	position: absolute;
 	right: 85px;
 	top: 85px;
@@ -299,38 +328,32 @@ body{
 	width: 30px;
 }
 
- .wrapper .inside:hover {
+.wrapper .inside:hover {
 	width: 100%;
 	right: 0;
 	top: 0;
 	border-radius: 0;
 	height: 80%;
 }
- .wrapper .inside:hover .icon {
+.wrapper .inside:hover .icon {
 	opacity: 0;
 	right: 15px;
 	top: 15px;
 }
- .wrapper .inside:hover .contents {
+.wrapper .inside:hover .contents {
 	opacity: 1;
 	transform: scale(1);
 	transform: translateY(0);
 }
- .wrapper .inside .contents {
+.wrapper .inside .contents {
 	padding: 5%;
 	opacity: 0;
 	transform: scale(0.5);
 	transform: translateY(-200%);
     transition: opacity 0.2s, transform 0.8s;
 }
- .wrapper .inside .contents table {
-	text-align: left;
-	width: 100%;
-}
- .wrapper .inside .contents h1, .wrapper .inside .contents p, .wrapper .inside .contents table {
-	color: white;
-}
- .wrapper .inside .contents p {
+
+.wrapper .inside .contents p {
 	font-size: 20px;
 }
  
