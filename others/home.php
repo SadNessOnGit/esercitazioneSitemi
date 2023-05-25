@@ -7,18 +7,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
     <title>Prodotti</title>
-    <script src="../js/jquery-3.7.0.js"></script>
+    <!--Collegamento all'immagine da mettere come icona del sito-->
+    <link rel="icon" type="image/png" href="../imgs/logo.png">
 </head>
 
 <body>
+    <?php
+        session_start();
+        if(isset($_SESSION['username']) == 1 && isset($_SESSION['pwd']) == 1){}
+        else{
+            header("Location: http://54.36.188.122/index.php");
+            session_destroy();
+        }
+    ?>
     <div class="nav">
         <div class="nav-sx">
-            <img src="" alt="logo">
-            <a href="" class="nav-link">PRODOTTI</a>
-            <a href="./access.html" class="nav-link">CHI SIAMO</a>
+            <img src="../imgs/logo.png" alt="logo">
+            <a href="http://54.36.188.122/others/home.php" class="nav-link">PRODOTTI</a>
+            <a href="./chisiamo.php" class="nav-link">CHI SIAMO</a>
         </div>
         <div class="nav-dx">
-            <a href=""><img src="../imgs/shopping-cart.png" alt="carrello"></a>
+            <img src="../imgs/user.png" alt="usr" onclick="openForm()">
+            <div class="form-popup" id="myForm">
+                <form action="../logout.php" class="form-container">
+                    <?php echo "<h1>".$_SESSION['username']."</h1>";?>
+                    <button type="submit" class="btn">Logout</button>
+                    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                </form>
+            </div>
+            <a><img src="../imgs/shopping-cart.png" alt="carrello"></a>
         </div>
     </div>
     <div class="search-div">
@@ -41,6 +58,7 @@
             if ($result->num_rows == 0) {
                 echo "No products in the database";
             } else {
+                $index = 0;
                 while (($row = $result->fetch_assoc())) {
                     echo '
                     <div class="wrapper" style="margin:10px">
@@ -53,7 +71,7 @@
                                     <h1>'.$row['nome'].'</h1>
                                     <p>'.$row['prezzo'].' €</p>
                                 </div>
-                                <div class="buy"><img src="../imgs/add.png"></img></div>
+                                <div class="buy" onclick="added('.$index.')"><img src="../imgs/add.png"></img></div>
                             </div>
                             <div class="right">
                                 <div class="done"><img src="../imgs/done.png"></img></div>
@@ -61,7 +79,7 @@
                                     <h1>'.$row['nome'].'</h1>
                                     <p>Added to your cart</p>
                                 </div>
-                                <div class="remove"><img src="../imgs/close.png"></img></div>
+                                <div class="remove" onclick="removed('.$index.')"><img src="../imgs/close.png"></img></div>
                             </div>
                         </div>
                     </div>
@@ -73,6 +91,7 @@
                     </div>
                 </div>
                         ';
+                    $index+=1;
                 }
             }
         } catch (Exception $e) {

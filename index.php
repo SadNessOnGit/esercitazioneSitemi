@@ -7,6 +7,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Accedi</title>
 	<link rel="stylesheet" href="./css/access.css">
+	<!--Collegamento all'immagine da mettere come icona del sito-->
+    <link rel="icon" type="image/png" href="./imgs/logo.png">
 </head>
 
 <body>
@@ -43,7 +45,8 @@
 		</div>
 	</div>
 	<?php
-		if($_POST['submit']){
+		session_start();
+		if(isset($_POST['submit']) == 1 || isset($_SESSION["submit"]) == 1){
 			include "./connect.php";
 			$db->autocommit(true);
 			//header("Location: ./others/home.php");
@@ -60,27 +63,38 @@
 						$sql = "INSERT INTO user ".
 						"(username,password) "."VALUES ".
 						"('$user','$pwd')";
-						if($db->query($sql)) header("Location: http://54.36.188.122/others/home.php");
-						else printf("<p class='php-message'>Impossibile inserire la riga: %s</p><br/>", $db->error);;
+						if($db->query($sql)){
+							header("Location: http://54.36.188.122/others/home.php");
+							$_SESSION['username'] = $user;
+							$_SESSION['pwd'] = $pwd;
+							$_SESSION['submit'] = "Accedi";
+						} else printf("<p class='php-message'>Impossibile inserire la riga: %s</p><br/>", $db->error);
 					}
 				}
-				unset($_POST["nusermane"]);
-				unset($_POST["npwd"]);
+				
+				;
 			}elseif($_POST['username'] != null && $_POST['pwd'] != null){
 				$user = $_POST['username'];
 				$pwd = $_POST['pwd'];
 				$result = $db->query("SELECT * FROM user WHERE username = '$user' AND password = '$pwd'");
 				if($result->num_rows > 0){
+					$_SESSION['username'] = $user;
+					$_SESSION['pwd'] = $pwd;
+					$_SESSION['submit'] = "Accedi";
 					header("Location: http://54.36.188.122/others/home.php");
 				}else{
 					echo "<p class='php-message'>Utente o password errati</p>";
 				}
-				unset($_POST["usermane"]);
-				unset($_POST["pwd"]);
+			}elseif(isset($_SESSION['username']) && isset($_SESSION['pwd'])){
+				header("Location: http://54.36.188.122/others/home.php");
 			}else{}
 			$db->close();
 		}
-		
+		unset($_POST["usermane"]);
+		unset($_POST["pwd"]);
+		unset($_POST['submit']);
+		unset($_POST["nusermane"]);
+		unset($_POST["npwd"]);
 ?>
 	<script src="./js/access.js"></script>
 </body>
