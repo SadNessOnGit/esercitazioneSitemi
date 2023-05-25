@@ -1,0 +1,79 @@
+body{
+	background: #FF416C;
+	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
+	background: linear-gradient(to right, #FF4B2B, #FF416C);
+	min-height: 100vh;
+}
+
+/*Ridimenzionamento e posizionamento del contenuto della sezione principale della pagina*/
+.main {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 600px);
+}
+
+/*Posizonamento del contenuto del contenitore main-header*/
+.main-header { 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #000;
+    padding: 0rem 2rem;
+}
+
+/*Ridimenzionamento e posizonamento del titolo all'interno del contenitore main-header*/
+.main-header h1 {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    font-size: 3rem;
+}
+
+/*Ridimenzionamento e posizonamento dei paragrafi all'interno del contenitore main-header*/
+.main-header p {
+    margin-bottom: 2rem;
+    font-size: 1.3rem;
+    line-height: 1.5;
+    max-width: 1000px;
+}
+
+/*Ridimenzionamento, posizionamento del contenuto della carta, scelta del colore e regolazione delle ombre per rendere dei contenitori simili a delle 'Carte'*/
+.card{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 260px;
+    height: 370px;
+    background-color: rgba(235, 233, 233, 0.152);
+    border-radius: 1rem;
+    box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.5);
+    transition: linear .2s;
+    margin: 3%;
+}
+
+/*Ridimenzionamento dei paragrafi delle 'Carte'*/
+.card p{
+    margin: 20px;
+    font-size: 24px;
+}
+
+/*Ridimenzionamento delle immagini delle 'Carte'*/
+.card img{
+    width: 80%;
+}
+
+/*Modifica delle ombre al passaggio sopra le 'Carte'*/
+.card:hover{
+    box-shadow: 4px 4px 10px 1px rgba(0, 0, 0, 0.5);
+}
+
+/*Posizionamento del contenuto del contenitore delle 'Carte'*/
+#card-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
